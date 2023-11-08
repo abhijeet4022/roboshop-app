@@ -5,7 +5,4 @@ module "vpc" {
   cidr = each.value["cidr"]
   tags = each.key
 
-
-
-
 }
