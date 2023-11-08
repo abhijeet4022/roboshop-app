@@ -6,7 +6,7 @@ module "vpc" {
 
 
 
-  output "cidr" {
-    value = "${each.value["cidr"]}"
-  }
+
 }
+output "cidr" {
+  value = "var.cidr"
