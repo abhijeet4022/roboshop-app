@@ -11,7 +11,7 @@ prod:
 dev-destroy:
 	rm -rf .terraform
 	terraform init -backend-config=env-dev/state.tfvars
-	terraform destroy -auto-approve -var-file=env-dev/state.tfvars
+	terraform destroy -auto-approve
 
 prod-destroy:
 	rm -rf .terraform
