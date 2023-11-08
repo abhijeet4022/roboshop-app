@@ -10,3 +10,4 @@ module "vpc" {
 }
 output "cidr" {
   value = "var.cidr"
+}
