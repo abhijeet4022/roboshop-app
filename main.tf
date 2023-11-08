@@ -3,6 +3,7 @@ module "vpc" {
 
   for_each = var.vpc
   cidr = each.value["cidr"]
-  tags = each.key
+  subnets = each.value["subnets"]
+  #tags = each.key
 
 }
