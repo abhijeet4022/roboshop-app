@@ -9,5 +9,5 @@ module "vpc" {
 
 }
 output "cidr" {
-  value = "var.cidr"
+  value = each.value["cidr"]
 }
