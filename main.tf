@@ -7,3 +7,7 @@ module "vpc" {
   tags = each.key
 
 }
+
+output "vpc" {
+  value = module.vpc
+}
