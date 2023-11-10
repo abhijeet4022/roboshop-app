@@ -5,6 +5,7 @@ module "vpc" {
   cidr     = each.value["cidr"]
   subnets  = each.value["subnets"]
   tags     = each.key
+  default_vpc_id = var.default_vpc_id
 
 }
 
