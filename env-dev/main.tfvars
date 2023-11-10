@@ -1,7 +1,7 @@
 vpc = {
 
   main = {
-    cidr = "10.0.0.0/17"
+    cidr    = "10.0.0.0/17"
     subnets = {
       public = {
         public-subnet-1a = { cidr = "10.0.0.0/24", az = "us-east-1a" }
