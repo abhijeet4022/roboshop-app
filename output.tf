@@ -6,7 +6,7 @@ output "subnets" {
   value = data.aws_subnets.subnets.ids
 }
 
-output "local" {
+output "local------------------------------------------------------------" {
   value = local.app_subnets
 }
 
