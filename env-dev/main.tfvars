@@ -1,3 +1,4 @@
+# VPC Details
 vpc = {
 
   main = {
@@ -23,8 +24,10 @@ default_vpc_id             = "vpc-0311b33936523a908"
 default_vpc_cidr           = "172.31.0.0/16"
 default_vpc_route_table_id = "rtb-07795e89ee4781179"
 
+# Environment
 env = "dev"
 
+# Tags
 tags = {
   company_name  = "ABC Tech"
   business_unit = "E.Com"
@@ -32,5 +35,24 @@ tags = {
   cost_center   = "ecom_rs"
   created_by    = "terraform"
 }
+
+# Alb Details.
+alb = {
+  public = {
+    internal        = false
+    lb_type         = "application"
+    sg_port         = "80"
+    sg_ingress_cidr = ["0.0.0.0/0"]
+
+  }
+  private = {
+    internal        = true
+    lb_type         = "application"
+    sg_port         = "80"
+    sg_ingress_cidr = ["172.31.0.0/16", "10.0.0.0/17"]
+  }
+}
+
+
 
 
