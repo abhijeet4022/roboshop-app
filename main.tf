@@ -32,7 +32,7 @@ module "alb" {
 
 # Configure the DocumentDB/Mongodb.
 module "docdb" {
-  source = "git::https://github.com/abhijeet4022/tf-module-alb.git"
+  source = "git::https://github.com/abhijeet4022/tf-module-docdb.git"
   env    = var.env
   tags   = var.tags
 
