@@ -54,5 +54,10 @@ alb = {
 }
 
 
+# DocumentDB details.
+docdb = {
+  main = {}
+}
+
 
 
