@@ -62,7 +62,7 @@ docdb = {
     skip_final_snapshot     = true
     engine_version          = "4.0.0"
     engine_family           = "docdb4.0"
-    instance_count          = "2"
+    instance_count          = "3"
     instance_class          = "db.t3.medium"   #Free trial eligible
   }
 }
