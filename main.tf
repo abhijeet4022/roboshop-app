@@ -48,7 +48,6 @@ module "docdb" {
   instance_count          = each.value["instance_count"]
   instance_class          = each.value["instance_class"]
 
-  docdb_sg_ingress_cidr = ""
 }
 
 module "rds" {
