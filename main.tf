@@ -42,13 +42,36 @@ module "docdb" {
   preferred_backup_window = each.value["preferred_backup_window"]
   skip_final_snapshot     = each.value["skip_final_snapshot"]
   vpc_id                  = local.vpc_id
-  docdb_sg_ingress_cidr   = local.app_subnets_cidr
+  db_sg_ingress_cidr      = local.app_subnets_cidr
   engine_version          = each.value["engine_version"]
-  engine_family          = each.value["engine_family"]
+  engine_family           = each.value["engine_family"]
   instance_count          = each.value["instance_count"]
   instance_class          = each.value["instance_class"]
 
+  docdb_sg_ingress_cidr = ""
 }
+
+module "rds" {
+  source = "git::https://github.com/abhijeet4022/tf-module-rds.git"
+  env    = var.env
+  tags   = var.tags
+
+  for_each                = var.rds
+  subnet_ids              = local.db_subnets
+  vpc_id                  = local.vpc_id
+  db_sg_ingress_cidr      = local.app_subnets_cidr
+  rds_type                = each.value["rds_type"]
+  port                    = each.value["port"]
+  parameter_group_family  = each.value["parameter_group_family"]
+  engine                  = each.value["engine"]
+  engine_version          = each.value["engine_version"]
+  backup_retention_period = each.value["backup_retention_period"]
+  preferred_backup_window = each.value["preferred_backup_window"]
+  skip_final_snapshot     = each.value["skip_final_snapshot"]
+
+
+}
+
 
 
 
