@@ -1,9 +1,8 @@
 # Configure the VPC.
 module "vpc" {
-  source = "git::https://github.com/abhijeet4022/tf-module-vpc.git"
-  env    = var.env
-  tags   = var.tags
-
+  source                     = "git::https://github.com/abhijeet4022/tf-module-vpc.git"
+  env                        = var.env
+  tags                       = var.tags
   for_each                   = var.vpc
   cidr                       = each.value["cidr"]
   subnets                    = each.value["subnets"]
@@ -16,10 +15,9 @@ module "vpc" {
 
 # Configure the Application Load Balancer.
 module "alb" {
-  source = "git::https://github.com/abhijeet4022/tf-module-alb.git"
-  env    = var.env
-  tags   = var.tags
-
+  source          = "git::https://github.com/abhijeet4022/tf-module-alb.git"
+  env             = var.env
+  tags            = var.tags
   for_each        = var.alb
   internal        = each.value["internal"]
   lb_type         = each.value["lb_type"]
@@ -32,10 +30,9 @@ module "alb" {
 
 # Configure the DocumentDB/Mongodb.
 module "docdb" {
-  source = "git::https://github.com/abhijeet4022/tf-module-docdb.git"
-  env    = var.env
-  tags   = var.tags
-
+  source                  = "git::https://github.com/abhijeet4022/tf-module-docdb.git"
+  env                     = var.env
+  tags                    = var.tags
   for_each                = var.docdb
   subnet_ids              = local.db_subnets
   backup_retention_period = each.value["backup_retention_period"]
@@ -51,10 +48,9 @@ module "docdb" {
 }
 
 module "rds" {
-  source = "git::https://github.com/abhijeet4022/tf-module-rds.git"
-  env    = var.env
-  tags   = var.tags
-
+  source                  = "git::https://github.com/abhijeet4022/tf-module-rds.git"
+  env                     = var.env
+  tags                    = var.tags
   for_each                = var.rds
   subnet_ids              = local.db_subnets
   vpc_id                  = local.vpc_id
