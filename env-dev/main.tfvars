@@ -57,7 +57,7 @@ alb = {
 # DocumentDB details.
 docdb = {
   main = {
-    backup_retention_period = 5
+    backup_retention_period = "5"
     preferred_backup_window = "07:00-09:00"
     skip_final_snapshot     = true
     engine_version          = "4.0.0"
@@ -74,23 +74,23 @@ rds = {
     parameter_group_family  = "aurora-mysql5.7"
     engine                  = "aurora-mysql"
     engine_version          = "5.7.mysql_aurora.2.11.4"
-    backup_retention_period = 5
+    backup_retention_period = "5"
     preferred_backup_window = "07:00-09:00"
     skip_final_snapshot     = true
     instance_class          = "db.t3.small"
-    instance_count          = 1
+    instance_count          = "1"
   }
 }
 
 elasticache = {
   main = {
     elasticache_type       = "redis"
-    port                   = 6379
+    port                   = "6379"
     parameter_group_family = "redis6.x"
     engine                 = "redis"
     engine_version         = "6.2"
     node_type              = "cache.t3.micro"
-    num_cache_nodes        = 1
+    num_cache_nodes        = "1"
   }
 }
 
