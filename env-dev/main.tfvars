@@ -78,8 +78,22 @@ rds = {
     preferred_backup_window = "07:00-09:00"
     skip_final_snapshot     = true
     instance_class          = "db.t3.small"
-    instance_count          = 2
+    instance_count          = 1
   }
 }
+
+elasticache = {
+  main = {
+    elasticache_type       = "redis"
+    port                   = 6379
+    parameter_group_family = "redis6.x"
+    engine                 = "redis"
+    engine_version         = "6.2"
+    node_type              = "cache.t3.micro"
+    num_cache_nodes        = 1
+  }
+}
+
+
 
 
