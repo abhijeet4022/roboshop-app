@@ -91,12 +91,14 @@ module "rabbitmq" {
   source              = "git::https://github.com/abhijeet4022/tf-module-rabbitmq.git"
   env                 = var.env
   tags                = var.tags
+  zone_id             = var.zone_id
   for_each            = var.rabbitmq
   subnet_ids          = local.db_subnets
   vpc_id              = local.vpc_id
   db_sg_ingress_cidr  = local.app_subnets_cidr
-  ssh_sg_ingress_cidr = var.ssh_sg_ingress_cidr
+  ssh_sg_ingress_cidr = each.value["ssh_sg_ingress_cidr"]
   instance_type       = each.value["instance_type"]
+  zone_id             = each.value["zone_id"]
 }
 
 

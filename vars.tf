@@ -9,7 +9,7 @@ variable "docdb" {}
 variable "rds" {}
 variable "elasticache" {}
 variable "rabbitmq" {}
-variable "ssh_sg_ingress_cidr" {}
+variable "zone_id" {}
 
 
 
