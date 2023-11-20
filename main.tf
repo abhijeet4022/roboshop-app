@@ -1,6 +1,5 @@
 # Configure the VPC.
 module "vpc" {
-
   source                     = "git::https://github.com/abhijeet4022/tf-module-vpc.git"
   env                        = var.env
   tags                       = var.tags
@@ -10,7 +9,6 @@ module "vpc" {
   default_vpc_id             = var.default_vpc_id
   default_vpc_cidr           = var.default_vpc_cidr
   default_vpc_route_table_id = var.default_vpc_route_table_id
-
 }
 
 
@@ -18,7 +16,6 @@ module "vpc" {
 
 # Configure the Application Load Balancer.
 module "alb" {
-
   source          = "git::https://github.com/abhijeet4022/tf-module-alb.git"
   env             = var.env
   tags            = var.tags
@@ -29,7 +26,6 @@ module "alb" {
   sg_port         = each.value["sg_port"]
   sg_ingress_cidr = each.value["sg_ingress_cidr"]
   subnets         = each.value["internal"] ? local.app_subnets : data.aws_subnets.subnets.ids
-
 }
 
 
