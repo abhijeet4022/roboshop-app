@@ -98,7 +98,7 @@ module "rabbitmq" {
   db_sg_ingress_cidr  = local.app_subnets_cidr
   ssh_sg_ingress_cidr = each.value["ssh_sg_ingress_cidr"]
   instance_type       = each.value["instance_type"]
-  zone_id             = each.value["zone_id"]
+
 }
 
 
