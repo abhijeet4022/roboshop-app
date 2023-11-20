@@ -36,8 +36,6 @@ vpc = {
 }
 
 
-
-
 # Alb Details.
 alb = {
   public = {
