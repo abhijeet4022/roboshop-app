@@ -1,11 +1,13 @@
 # Configure the VPC.
 module "vpc" {
-  source                     = "git::https://github.com/abhijeet4022/tf-module-vpc.git"
-  env                        = var.env
-  tags                       = var.tags
-  for_each                   = var.vpc
-  cidr                       = each.value["cidr"]
-  subnets                    = each.value["subnets"]
+  source = "git::https://github.com/abhijeet4022/tf-module-vpc.git"
+  env    = var.env
+  tags   = var.tags
+
+  for_each = var.vpc
+  cidr     = each.value["cidr"]
+  subnets  = each.value["subnets"]
+
   default_vpc_id             = var.default_vpc_id
   default_vpc_cidr           = var.default_vpc_cidr
   default_vpc_route_table_id = var.default_vpc_route_table_id
@@ -14,9 +16,10 @@ module "vpc" {
 
 # Configure the Application Load Balancer.
 module "alb" {
-  source          = "git::https://github.com/abhijeet4022/tf-module-alb.git"
-  env             = var.env
-  tags            = var.tags
+  source = "git::https://github.com/abhijeet4022/tf-module-alb.git"
+  env    = var.env
+  tags   = var.tags
+
   for_each        = var.alb
   internal        = each.value["internal"]
   lb_type         = each.value["lb_type"]
@@ -34,13 +37,15 @@ module "alb" {
 #  source                  = "git::https://github.com/abhijeet4022/tf-module-docdb.git"
 #  env                     = var.env
 #  tags                    = var.tags
+
 #  for_each                = var.docdb
 #  subnet_ids              = local.db_subnets
+#  vpc_id                  = local.vpc_id
+#  db_sg_ingress_cidr      = local.app_subnets_cidr
+
 #  backup_retention_period = each.value["backup_retention_period"]
 #  preferred_backup_window = each.value["preferred_backup_window"]
 #  skip_final_snapshot     = each.value["skip_final_snapshot"]
-#  vpc_id                  = local.vpc_id
-#  db_sg_ingress_cidr      = local.app_subnets_cidr
 #  engine_version          = each.value["engine_version"]
 #  engine_family           = each.value["engine_family"]
 #  instance_count          = each.value["instance_count"]
@@ -55,10 +60,12 @@ module "alb" {
 #  source                  = "git::https://github.com/abhijeet4022/tf-module-rds.git"
 #  env                     = var.env
 #  tags                    = var.tags
+
 #  for_each                = var.rds
 #  subnet_ids              = local.db_subnets
 #  vpc_id                  = local.vpc_id
 #  db_sg_ingress_cidr      = local.app_subnets_cidr
+
 #  rds_type                = each.value["rds_type"]
 #  port                    = each.value["port"]
 #  parameter_group_family  = each.value["parameter_group_family"]
@@ -80,10 +87,12 @@ module "alb" {
 #  source                 = "git::https://github.com/abhijeet4022/tf-module-elasticache.git"
 #  env                    = var.env
 #  tags                   = var.tags
+
 #  for_each               = var.elasticache
 #  subnet_ids             = local.db_subnets
 #  vpc_id                 = local.vpc_id
 #  db_sg_ingress_cidr     = local.app_subnets_cidr
+
 #  elasticache_type       = each.value["elasticache_type"]
 #  port                   = each.value["port"]
 #  parameter_group_family = each.value["parameter_group_family"]
@@ -103,12 +112,15 @@ module "alb" {
 #  env                 = var.env
 #  tags                = var.tags
 #  zone_id             = var.zone_id
+#   ssh_sg_ingress_cidr = var.ssh_sg_ingress_cidr
+
 #  for_each            = var.rabbitmq
+#  instance_type       = each.value["instance_type"]
+
 #  subnet_ids          = local.db_subnets
 #  vpc_id              = local.vpc_id
 #  db_sg_ingress_cidr  = local.app_subnets_cidr
-#  ssh_sg_ingress_cidr = var.ssh_sg_ingress_cidr
-#  instance_type       = each.value["instance_type"]
+
 #
 #}
 
@@ -116,17 +128,20 @@ module "alb" {
 
 module "app" {
 
-  source  = "git::https://github.com/abhijeet4022/tf-module-app.git"
-  env     = var.env
-  tags    = var.tags
-  zone_id = var.zone_id
-
-  for_each            = var.app
-  component           = each.key
-  vpc_id              = local.vpc_id
-  port                = each.value["port"]
-  app_sg_ingress_cidr = local.app_subnets_cidr
+  source              = "git::https://github.com/abhijeet4022/tf-module-app.git"
+  env                 = var.env
+  tags                = var.tags
+  zone_id             = var.zone_id
   ssh_sg_ingress_cidr = var.ssh_sg_ingress_cidr
+
+  for_each  = var.app
+  component = each.key
+  port      = each.value["port"]
+
+  vpc_id              = local.vpc_id
+  app_sg_ingress_cidr = local.app_subnets_cidr
+  subnet_ids          = local.app_subnets
+
 
 }
 
