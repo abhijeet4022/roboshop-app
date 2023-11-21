@@ -134,10 +134,13 @@ module "app" {
   zone_id             = var.zone_id
   ssh_sg_ingress_cidr = var.ssh_sg_ingress_cidr
 
-  for_each  = var.app
-  component = each.key
-  port      = each.value["port"]
-  instance_type = each.value["instance_type"]
+  for_each         = var.app
+  component        = each.key
+  port             = each.value["port"]
+  instance_type    = each.value["instance_type"]
+  desired_capacity = each.value["desired_capacity"]
+  max_size         = each.value["max_size"]
+  min_size         = each.value["min_size"]
 
   vpc_id              = local.vpc_id
   app_sg_ingress_cidr = local.app_subnets_cidr
@@ -145,6 +148,4 @@ module "app" {
 
 
 }
-
-
 
