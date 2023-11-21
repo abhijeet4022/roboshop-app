@@ -104,46 +104,52 @@ rabbitmq = {
 
 app = {
   frontend = {
-    instance_type    = "t2.micro"
-    port             = "80"
-    desired_capacity = "1"
-    min_size         = "1"
-    max_size         = "2"
+    instance_type     = "t2.micro"
+    port              = "80"
+    desired_capacity  = "1"
+    min_size          = "1"
+    max_size          = "2"
+    listener_priority = "100"
   }
   catalogue = {
-    instance_type    = "t3.small"
-    port             = "8080"
-    desired_capacity = "1"
-    min_size         = "1"
-    max_size         = "2"
+    instance_type     = "t3.small"
+    port              = "8080"
+    desired_capacity  = "1"
+    min_size          = "1"
+    max_size          = "2"
+    listener_priority = "101"
   }
   user = {
-    instance_type    = "t3.small"
-    port             = "8080"
-    desired_capacity = "1"
-    min_size         = "1"
-    max_size         = "2"
+    instance_type     = "t3.small"
+    port              = "8080"
+    desired_capacity  = "1"
+    min_size          = "1"
+    max_size          = "2"
+    listener_priority = "102"
   }
   cart = {
-    instance_type    = "t3.small"
-    port             = "8080"
-    desired_capacity = "1"
-    min_size         = "1"
-    max_size         = "2"
+    instance_type     = "t3.small"
+    port              = "8080"
+    desired_capacity  = "1"
+    min_size          = "1"
+    max_size          = "2"
+    listener_priority = "103"
   }
   payment = {
-    instance_type    = "t3.small"
-    port             = "8080"
-    desired_capacity = "1"
-    min_size         = "1"
-    max_size         = "2"
+    instance_type     = "t3.small"
+    port              = "8080"
+    desired_capacity  = "1"
+    min_size          = "1"
+    max_size          = "2"
+    listener_priority = "104"
   }
   shipping = {
-    instance_type    = "t3.small"
-    port             = "8080"
-    desired_capacity = "1"
-    min_size         = "1"
-    max_size         = "2"
+    instance_type     = "t3.small"
+    port              = "8080"
+    desired_capacity  = "1"
+    min_size          = "1"
+    max_size          = "2"
+    listener_priority = "105"
   }
 }
 

@@ -134,19 +134,21 @@ module "app" {
   zone_id             = var.zone_id
   ssh_sg_ingress_cidr = var.ssh_sg_ingress_cidr
 
-  for_each         = var.app
-  component        = each.key
-  port             = each.value["port"]
-  instance_type    = each.value["instance_type"]
-  desired_capacity = each.value["desired_capacity"]
-  min_size         = each.value["min_size"]
-  max_size         = each.value["max_size"]
+  for_each          = var.app
+  component         = each.key
+  port              = each.value["port"]
+  instance_type     = each.value["instance_type"]
+  desired_capacity  = each.value["desired_capacity"]
+  min_size          = each.value["min_size"]
+  max_size          = each.value["max_size"]
+  listener_priority = each.value["listener_priority"]
 
   vpc_id              = local.vpc_id
   app_sg_ingress_cidr = local.app_subnets_cidr
   subnet_ids          = local.app_subnets
 
-  alb_name    = lookup(lookup(lookup(module.alb, "private", null ), "alb", null), "dns_name", null)
+  alb_name     = lookup(lookup(lookup(module.alb, "private", null ), "alb", null), "dns_name", null)
+  listener_arn = lookup(lookup(lookup(module.alb, "private", null ), "listener", null), "arn", null)
 
 
 }
