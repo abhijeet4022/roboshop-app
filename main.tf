@@ -147,8 +147,8 @@ module "app" {
   app_sg_ingress_cidr = local.app_subnets_cidr
   subnet_ids          = local.app_subnets
 
-  alb_name     = lookup(lookup(lookup(module.alb, "private", null ), "alb", null), "dns_name", null)
-  listener_arn = lookup(lookup(lookup(module.alb, "private", null ), "listener", null), "arn", null)
+  alb_name     = lookup(lookup(lookup(module.alb, "private", null), "alb", null), "dns_name", null)
+  listener_arn = lookup(lookup(lookup(module.alb, "private", null), "listener", null), "arn", null)
 
 
 }
