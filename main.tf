@@ -139,8 +139,8 @@ module "app" {
   port             = each.value["port"]
   instance_type    = each.value["instance_type"]
   desired_capacity = each.value["desired_capacity"]
-  max_size         = each.value["max_size"]
   min_size         = each.value["min_size"]
+  max_size         = each.value["max_size"]
 
   vpc_id              = local.vpc_id
   app_sg_ingress_cidr = local.app_subnets_cidr
