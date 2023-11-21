@@ -3,7 +3,9 @@ default_vpc_cidr           = "172.31.0.0/16"
 default_vpc_route_table_id = "rtb-07795e89ee4781179"
 zone_id                    = "Z100646411UC397CS7DH3"
 env                        = "dev"
-tags                       = {
+ssh_sg_ingress_cidr        = ["172.31.38.193/32"]
+
+tags = {
   company_name  = "ABC Tech"
   business_unit = "E.Com"
   project_name  = "roboshop"
@@ -96,8 +98,14 @@ elasticache = {
 
 rabbitmq = {
   main = {
-    instance_type       = "t2.micro"
-    ssh_sg_ingress_cidr = ["172.31.38.193/32"]
+    instance_type = "t2.micro"
+  }
+}
+
+app = {
+  frontend = {
+    instance_type = "t2.micro"
+    port          = "80"
   }
 }
 

@@ -12,8 +12,6 @@ module "vpc" {
 }
 
 
-
-
 # Configure the Application Load Balancer.
 module "alb" {
   source          = "git::https://github.com/abhijeet4022/tf-module-alb.git"
@@ -109,10 +107,28 @@ module "alb" {
 #  subnet_ids          = local.db_subnets
 #  vpc_id              = local.vpc_id
 #  db_sg_ingress_cidr  = local.app_subnets_cidr
-#  ssh_sg_ingress_cidr = each.value["ssh_sg_ingress_cidr"]
+#  ssh_sg_ingress_cidr = var.ssh_sg_ingress_cidr
 #  instance_type       = each.value["instance_type"]
 #
 #}
+
+
+
+module "app" {
+
+  source  = "git::https://github.com/abhijeet4022/tf-module-app.git"
+  env     = var.env
+  tags    = var.tags
+  zone_id = var.zone_id
+
+  for_each            = var.app
+  component           = each.key
+  vpc_id              = local.vpc_id
+  port                = each.value["port"]
+  app_sg_ingress_cidr = local.app_subnets_cidr
+  ssh_sg_ingress_cidr = var.ssh_sg_ingress_cidr
+
+}
 
 
 
