@@ -110,6 +110,41 @@ app = {
     min_size         = "1"
     max_size         = "2"
   }
+  catalogue = {
+    instance_type    = "t3.small"
+    port             = "8080"
+    desired_capacity = "1"
+    min_size         = "1"
+    max_size         = "2"
+  }
+  user = {
+    instance_type    = "t3.small"
+    port             = "8080"
+    desired_capacity = "1"
+    min_size         = "1"
+    max_size         = "2"
+  }
+  cart = {
+    instance_type    = "t3.small"
+    port             = "8080"
+    desired_capacity = "1"
+    min_size         = "1"
+    max_size         = "2"
+  }
+  payment = {
+    instance_type    = "t3.small"
+    port             = "8080"
+    desired_capacity = "1"
+    min_size         = "1"
+    max_size         = "2"
+  }
+  shipping = {
+    instance_type    = "t3.small"
+    port             = "8080"
+    desired_capacity = "1"
+    min_size         = "1"
+    max_size         = "2"
+  }
 }
 
 
