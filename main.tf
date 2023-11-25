@@ -30,18 +30,17 @@ module "alb" {
 }
 
 
-
 # Configure the DocumentDB/Mongodb.
 module "docdb" {
 
-  source                  = "git::https://github.com/abhijeet4022/tf-module-docdb.git"
-  env                     = var.env
-  tags                    = var.tags
+  source = "git::https://github.com/abhijeet4022/tf-module-docdb.git"
+  env    = var.env
+  tags   = var.tags
 
-  for_each                = var.docdb
-  subnet_ids              = local.db_subnets
-  vpc_id                  = local.vpc_id
-  db_sg_ingress_cidr      = local.app_subnets_cidr
+  for_each           = var.docdb
+  subnet_ids         = local.db_subnets
+  vpc_id             = local.vpc_id
+  db_sg_ingress_cidr = local.app_subnets_cidr
 
   backup_retention_period = each.value["backup_retention_period"]
   preferred_backup_window = each.value["preferred_backup_window"]
@@ -54,17 +53,16 @@ module "docdb" {
 }
 
 
-
 module "rds" {
 
-  source                  = "git::https://github.com/abhijeet4022/tf-module-rds.git"
-  env                     = var.env
-  tags                    = var.tags
+  source = "git::https://github.com/abhijeet4022/tf-module-rds.git"
+  env    = var.env
+  tags   = var.tags
 
-  for_each                = var.rds
-  subnet_ids              = local.db_subnets
-  vpc_id                  = local.vpc_id
-  db_sg_ingress_cidr      = local.app_subnets_cidr
+  for_each           = var.rds
+  subnet_ids         = local.db_subnets
+  vpc_id             = local.vpc_id
+  db_sg_ingress_cidr = local.app_subnets_cidr
 
   rds_type                = each.value["rds_type"]
   port                    = each.value["port"]
@@ -80,18 +78,16 @@ module "rds" {
 }
 
 
-
-
 module "elasticache" {
 
-  source                 = "git::https://github.com/abhijeet4022/tf-module-elasticache.git"
-  env                    = var.env
-  tags                   = var.tags
+  source = "git::https://github.com/abhijeet4022/tf-module-elasticache.git"
+  env    = var.env
+  tags   = var.tags
 
-  for_each               = var.elasticache
-  subnet_ids             = local.db_subnets
-  vpc_id                 = local.vpc_id
-  db_sg_ingress_cidr     = local.app_subnets_cidr
+  for_each           = var.elasticache
+  subnet_ids         = local.db_subnets
+  vpc_id             = local.vpc_id
+  db_sg_ingress_cidr = local.app_subnets_cidr
 
   elasticache_type       = each.value["elasticache_type"]
   port                   = each.value["port"]
@@ -104,26 +100,23 @@ module "elasticache" {
 }
 
 
-
-
 module "rabbitmq" {
 
   source              = "git::https://github.com/abhijeet4022/tf-module-rabbitmq.git"
   env                 = var.env
   tags                = var.tags
   zone_id             = var.zone_id
-   ssh_sg_ingress_cidr = var.ssh_sg_ingress_cidr
+  ssh_sg_ingress_cidr = var.ssh_sg_ingress_cidr
 
-  for_each            = var.rabbitmq
-  instance_type       = each.value["instance_type"]
+  for_each      = var.rabbitmq
+  instance_type = each.value["instance_type"]
 
-  subnet_ids          = local.db_subnets
-  vpc_id              = local.vpc_id
-  db_sg_ingress_cidr  = local.app_subnets_cidr
+  subnet_ids         = local.db_subnets
+  vpc_id             = local.vpc_id
+  db_sg_ingress_cidr = local.app_subnets_cidr
 
 
 }
-
 
 
 module "app" {
@@ -147,8 +140,10 @@ module "app" {
   app_sg_ingress_cidr = local.app_subnets_cidr
   subnet_ids          = local.app_subnets
 
-  alb_name     = lookup(lookup(lookup(module.alb, "private", null), "alb", null), "dns_name", null)
-  listener = lookup(lookup(lookup(module.alb, "private", null), "listener", null), "arn", null)
+  private_alb_name = lookup(lookup(lookup(module.alb, "private", null), "alb", null), "dns_name", null)
+  public_alb_name = lookup(lookup(lookup(module.alb, "public", null), "alb", null), "dns_name", null)
+  private_listener = lookup(lookup(lookup(module.alb, "private", null), "listener", null), "arn", null)
+  public_listener = lookup(lookup(lookup(module.alb, "public", null), "listener", null), "arn", null)
 
 
 }
