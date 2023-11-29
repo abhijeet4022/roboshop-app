@@ -126,8 +126,10 @@ module "app" {
   tags                = var.tags
   zone_id             = var.zone_id
   ssh_sg_ingress_cidr = var.ssh_sg_ingress_cidr
+  default_vpc_id      = var.default_vpc_id
 
-  for_each          = var.app
+  for_each = var.app
+
   component         = each.key
   port              = each.value["port"]
   instance_type     = each.value["instance_type"]
@@ -136,14 +138,15 @@ module "app" {
   max_size          = each.value["max_size"]
   listener_priority = each.value["listener_priority"]
 
-  vpc_id              = local.vpc_id
   app_sg_ingress_cidr = local.app_subnets_cidr
   subnet_ids          = local.app_subnets
 
+
+
   private_alb_name = lookup(lookup(lookup(module.alb, "private", null), "alb", null), "dns_name", null)
-  public_alb_name = lookup(lookup(lookup(module.alb, "public", null), "alb", null), "dns_name", null)
+  public_alb_name  = lookup(lookup(lookup(module.alb, "public", null), "alb", null), "dns_name", null)
   private_listener = lookup(lookup(lookup(module.alb, "private", null), "listener", null), "arn", null)
-  public_listener = lookup(lookup(lookup(module.alb, "public", null), "listener", null), "arn", null)
+  public_listener  = lookup(lookup(lookup(module.alb, "public", null), "listener", null), "arn", null)
 
 
 }
